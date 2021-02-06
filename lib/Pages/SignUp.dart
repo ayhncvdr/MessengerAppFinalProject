@@ -37,8 +37,33 @@ class _SignUpState extends State<SignUp> {
       UserCredential firebaseUser = await _auth
           .createUserWithEmailAndPassword(email: _email, password: _password)
           .then((value) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Center(child: Text("Account Created Successful!")),
+            content: SizedBox(
+                child: Icon(
+              Icons.done,
+              size: 50,
+              color: Colors.green,
+            )),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Back")),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignIn()));
+                  },
+                  child: Text("Sign In")),
+            ],
+          ),
+        );
+        /*Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignIn()));*/
       });
       if (firebaseUser != null) {
         await _auth.currentUser.updateProfile(displayName: _username);
@@ -88,10 +113,11 @@ class _SignUpState extends State<SignUp> {
                   ),
                   TextFormField(
                     validator: (input) {
-                      if (input.isEmpty)
-                        return "Enter an email address";
-                      else if (input.length < 6)
-                        return "Provide minimum 6 character";
+                      return RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(input)
+                          ? null
+                          : "Please provide a valid e-mail!";
                     },
                     onSaved: (input) => _email = input,
                     decoration: textFieldInputDecoration("e-mail"),
@@ -136,7 +162,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  Container(
+                  /*Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.symmetric(
@@ -157,7 +183,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                  ),
+                  ),*/
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.020,
                   ),

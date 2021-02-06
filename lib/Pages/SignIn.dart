@@ -1,10 +1,10 @@
-import 'package:chat_app_final/Pages/Tabs.dart';
 import 'package:chat_app_final/widgets/widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'SignUp.dart';
+import 'Tabs.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -39,8 +39,32 @@ class _SignInState extends State<SignIn> {
       UserCredential firebaseUser = await _auth
           .signInWithEmailAndPassword(email: _email, password: _password)
           .then((value) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Tabs()));
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Center(child: Text("Login Successful!")),
+            content: SizedBox(
+                child: Icon(
+              Icons.done,
+              size: 50,
+              color: Colors.green,
+            )),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Back")),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Tabs()));
+                  },
+                  child: Text("Chats")),
+            ],
+          ),
+        );
+        /*Navigator.push(context, MaterialPageRoute(builder: (context) => Tabs()));*/
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -87,7 +111,11 @@ class _SignInState extends State<SignIn> {
                   ),
                   TextFormField(
                     validator: (input) {
-                      if (input.isEmpty) return "Enter Email";
+                      return RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(input)
+                          ? null
+                          : "Please provide a valid e-mail!";
                     },
                     decoration: textFieldInputDecoration("e-mail"),
                     onSaved: (input) => _email = input,
