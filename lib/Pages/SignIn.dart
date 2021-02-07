@@ -1,7 +1,10 @@
 import 'package:chat_app_final/widgets/widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SignUp.dart';
 import 'Tabs.dart';
@@ -14,8 +17,49 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  //get current user
+  getCurrentUser() async {
+    return _auth.currentUser;
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
+
+  Future<String> signInWithGoogle(BuildContext context) async {
+    final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+    final GoogleSignIn _googleSignIn = new GoogleSignIn();
+
+    final GoogleSignInAccount googleSignInAccount =
+        await _googleSignIn.signIn();
+
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken);
+
+    UserCredential result =
+        await _firebaseAuth.signInWithCredential(credential);
+    User userDetails = result.user;
+
+    if (result == null) {
+    } else {
+      SharedPreferenceHelper().saveUserEmail(userDetails.email);
+      SharedPreferenceHelper().saveUserId(userDetails.uid);
+      SharedPreferenceHelper()
+          .saveUserName(userDetails.email.replaceAll("@gmail.com", ""));
+      SharedPreferenceHelper().saveDisplayName(userDetails.displayName);
+      SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);
+
+      DatabaseMethods().addUserInfoToDB(
+          userID: userDetails.uid,
+          email: userDetails.email,
+          username: userDetails.email.replaceAll("@gmail.com", ""),
+          name: userDetails.displayName,
+          profileUrl: userDetails.photoURL);
+    }
+  }
 
   checkAuthentification() async {
     _auth.authStateChanges().listen((user) {
@@ -184,7 +228,14 @@ class _SignInState extends State<SignIn> {
                       width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.08,
                       child: RaisedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          signInWithGoogle(context).then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Tabs()));
+                          });
+                        },
                         child: Text(
                           "Sign In with Google",
                           style: TextStyle(color: Colors.black, fontSize: 16),
@@ -227,5 +278,81 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
+  }
+}
+
+class SharedPreferenceHelper {
+  static String userIdKey = "USERIDKEY";
+  static String userNameKey = "USERNAMEKEY";
+  static String displayNameKey = "USERDISPLAYNAME";
+  static String userEmailKey = "USEREMAILKEY";
+  static String userProfilePicKey = "USERPROFILEKEY";
+
+  //save data
+  Future<bool> saveUserName(String userName) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userNameKey, userName);
+  }
+
+  Future<bool> saveUserEmail(String getUseremail) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userEmailKey, getUseremail);
+  }
+
+  Future<bool> saveUserId(String getUserId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userIdKey, getUserId);
+  }
+
+  Future<bool> saveDisplayName(String getDisplayName) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(displayNameKey, getDisplayName);
+  }
+
+  Future<bool> saveUserProfileUrl(String getUserProfile) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userProfilePicKey, getUserProfile);
+  }
+
+  //get data
+  Future<String> getUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userNameKey);
+  }
+
+  Future<String> getUserEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userEmailKey);
+  }
+
+  Future<String> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userIdKey);
+  }
+
+  Future<String> getDisplayName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(displayNameKey);
+  }
+
+  Future<String> getUserProfileUrl() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userProfilePicKey);
+  }
+}
+
+class DatabaseMethods {
+  addUserInfoToDB(
+      {String userID,
+      String email,
+      String username,
+      String name,
+      String profileUrl}) {
+    FirebaseFirestore.instance.collection("users").doc(userID).set({
+      "email": email,
+      "username": username,
+      "name": name,
+      "imgUrl": profileUrl
+    });
   }
 }
