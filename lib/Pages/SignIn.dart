@@ -1,3 +1,5 @@
+import 'package:chat_app_final/Services/DatabaseMethods.dart';
+import 'package:chat_app_final/Services/SharedPreferenceHelper.dart';
 import 'package:chat_app_final/widgets/widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,7 @@ class _SignInState extends State<SignIn> {
 
     if (result == null) {
     } else {
-      /*SharedPreferenceHelper().saveUserEmail(userDetails.email);
+      SharedPreferenceHelper().saveUserEmail(userDetails.email);
       SharedPreferenceHelper().saveUserId(userDetails.uid);
       SharedPreferenceHelper()
           .saveUserName(userDetails.email.replaceAll("@gmail.com", ""));
@@ -50,7 +52,7 @@ class _SignInState extends State<SignIn> {
           email: userDetails.email,
           username: userDetails.email.replaceAll("@gmail.com", ""),
           name: userDetails.displayName,
-          profileUrl: userDetails.photoURL);*/
+          profileUrl: userDetails.photoURL);
     }
   }
 
