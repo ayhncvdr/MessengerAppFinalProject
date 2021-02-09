@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'Pages/SignIn.dart';
+import 'Pages/Tabs.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignIn(),
+      home: FutureBuilder(
+        future: getCurrentUser(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData)
+            return Tabs();
+          else
+            return SignIn();
+        },
+      ),
     );
   }
 }

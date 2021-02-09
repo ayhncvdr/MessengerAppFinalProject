@@ -24,7 +24,7 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Helalke"),
+        title: Text("Chats"),
         actions: [
           GestureDetector(
             onTap: signOut,

@@ -1,10 +1,8 @@
 import 'package:chat_app_final/widgets/widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SignUp.dart';
 import 'Tabs.dart';
@@ -16,11 +14,6 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   FirebaseAuth _auth = FirebaseAuth.instance;
-
-  //get current user
-  getCurrentUser() async {
-    return _auth.currentUser;
-  }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
@@ -45,7 +38,7 @@ class _SignInState extends State<SignIn> {
 
     if (result == null) {
     } else {
-      SharedPreferenceHelper().saveUserEmail(userDetails.email);
+      /*SharedPreferenceHelper().saveUserEmail(userDetails.email);
       SharedPreferenceHelper().saveUserId(userDetails.uid);
       SharedPreferenceHelper()
           .saveUserName(userDetails.email.replaceAll("@gmail.com", ""));
@@ -57,7 +50,7 @@ class _SignInState extends State<SignIn> {
           email: userDetails.email,
           username: userDetails.email.replaceAll("@gmail.com", ""),
           name: userDetails.displayName,
-          profileUrl: userDetails.photoURL);
+          profileUrl: userDetails.photoURL);*/
     }
   }
 
@@ -175,7 +168,7 @@ class _SignInState extends State<SignIn> {
                     onSaved: (input) => _password = input,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.005,
+                    height: MediaQuery.of(context).size.height * 0,
                   ),
                   Container(
                     alignment: Alignment.centerRight,
@@ -190,7 +183,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.008,
+                    height: MediaQuery.of(context).size.height * 0.005,
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -281,78 +274,8 @@ class _SignInState extends State<SignIn> {
   }
 }
 
-class SharedPreferenceHelper {
-  static String userIdKey = "USERIDKEY";
-  static String userNameKey = "USERNAMEKEY";
-  static String displayNameKey = "USERDISPLAYNAME";
-  static String userEmailKey = "USEREMAILKEY";
-  static String userProfilePicKey = "USERPROFILEKEY";
-
-  //save data
-  Future<bool> saveUserName(String userName) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(userNameKey, userName);
-  }
-
-  Future<bool> saveUserEmail(String getUseremail) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(userEmailKey, getUseremail);
-  }
-
-  Future<bool> saveUserId(String getUserId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(userIdKey, getUserId);
-  }
-
-  Future<bool> saveDisplayName(String getDisplayName) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(displayNameKey, getDisplayName);
-  }
-
-  Future<bool> saveUserProfileUrl(String getUserProfile) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(userProfilePicKey, getUserProfile);
-  }
-
-  //get data
-  Future<String> getUserName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userNameKey);
-  }
-
-  Future<String> getUserEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userEmailKey);
-  }
-
-  Future<String> getUserId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userIdKey);
-  }
-
-  Future<String> getDisplayName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(displayNameKey);
-  }
-
-  Future<String> getUserProfileUrl() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userProfilePicKey);
-  }
-}
-
-class DatabaseMethods {
-  addUserInfoToDB(
-      {String userID,
-      String email,
-      String username,
-      String name,
-      String profileUrl}) {
-    FirebaseFirestore.instance.collection("users").doc(userID).set({
-      "email": email,
-      "username": username,
-      "name": name,
-      "imgUrl": profileUrl
-    });
-  }
+// GET USER
+getCurrentUser() async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  return await _auth.currentUser;
 }
