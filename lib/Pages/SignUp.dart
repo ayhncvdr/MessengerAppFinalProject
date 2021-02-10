@@ -1,3 +1,4 @@
+import 'package:chat_app_final/Services/DatabaseMethods.dart';
 import 'package:chat_app_final/widgets/widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,19 @@ class _SignUpState extends State<SignUp> {
       _formKey.currentState.save();
     }
     try {
-      UserCredential firebaseUser = await _auth
-          .createUserWithEmailAndPassword(email: _email, password: _password)
-          .then((value) {
+      UserCredential firebaseUser = await _auth.createUserWithEmailAndPassword(
+          email: _email, password: _password);
+      User userDetails = firebaseUser.user;
+      if (firebaseUser != null) {
+        DatabaseMethods().addUserInfoToDB(
+          userID: userDetails.uid,
+          email: userDetails.email,
+          username: _username,
+          name: userDetails.displayName,
+          profileUrl: userDetails.photoURL,
+        );
+      }
+      /* .then((value) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -64,7 +75,7 @@ class _SignUpState extends State<SignUp> {
         );
         /*Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignIn()));*/
-      });
+      })*/
       if (firebaseUser != null) {
         await _auth.currentUser.updateProfile(displayName: _username);
       }
@@ -152,7 +163,14 @@ class _SignUpState extends State<SignUp> {
                       width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.08,
                       child: RaisedButton(
-                        onPressed: signUp,
+                        onPressed: () {
+                          signUp().then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignIn()));
+                          });
+                        },
                         highlightColor: Colors.indigo,
                         color: Colors.indigo,
                         child: Text(

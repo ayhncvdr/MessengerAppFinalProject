@@ -74,9 +74,21 @@ class _SignInState extends State<SignIn> {
       _formKey.currentState.save();
     }
     try {
-      UserCredential firebaseUser = await _auth
-          .signInWithEmailAndPassword(email: _email, password: _password)
-          .then((value) {
+      UserCredential firebaseUser = await _auth.signInWithEmailAndPassword(
+          email: _email, password: _password);
+
+      User userDetails = firebaseUser.user;
+
+      if (firebaseUser != null) {
+        DatabaseMethods().addUserInfoToDB(
+          userID: userDetails.uid,
+          email: userDetails.email,
+          username: userDetails.email.replaceAll("@gmail.com", ""),
+          name: userDetails.displayName,
+          profileUrl: userDetails.photoURL,
+        );
+      }
+      /*.then((value) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -103,7 +115,8 @@ class _SignInState extends State<SignIn> {
           ),
         );
         /*Navigator.push(context, MaterialPageRoute(builder: (context) => Tabs()));*/
-      });
+      });*/
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -199,7 +212,14 @@ class _SignInState extends State<SignIn> {
                       width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.08,
                       child: RaisedButton(
-                        onPressed: login,
+                        onPressed: () {
+                          login().then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Tabs()));
+                          });
+                        },
                         highlightColor: Colors.indigo,
                         color: Colors.indigo,
                         child: Text(
