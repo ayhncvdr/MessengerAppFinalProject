@@ -11,17 +11,16 @@ class ChatsPage extends StatefulWidget {
 class _ChatsPageState extends State<ChatsPage> {
   TextEditingController _textEditingController = TextEditingController();
 
-  Stream usersSearchedStream;
-
   onSearchButtonClicked() async {
     setState(() {});
-    usersSearchedStream =
-        await DatabaseMethods().getUserNamefromDB(_textEditingController.text);
+
+    await DatabaseMethods().getUserNamefromDB(_textEditingController.text);
   }
 
   Widget searchUsersList() {
-    return StreamBuilder(
-        stream: usersSearchedStream,
+    return FutureBuilder(
+        future:
+            DatabaseMethods().getUserNamefromDB(_textEditingController.text),
         builder: (context, snapshot) {
           return snapshot.hasData
               ? ListView.builder(
@@ -32,7 +31,9 @@ class _ChatsPageState extends State<ChatsPage> {
                     return Image.network(ds["imgUrl"]);
                   },
                 )
-              : Center(child: CircularProgressIndicator());
+              : Container(
+                  alignment: Alignment.topCenter,
+                  child: CircularProgressIndicator());
         });
   }
 
