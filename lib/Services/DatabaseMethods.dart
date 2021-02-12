@@ -17,4 +17,11 @@ class DatabaseMethods {
       "imgUrl": profileUrl
     });
   }
+
+  Future<Stream<QuerySnapshot>> getUserNamefromDB(String username) async {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: username)
+        .snapshots();
+  }
 }
