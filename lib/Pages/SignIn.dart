@@ -1,4 +1,5 @@
 import 'package:chat_app_final/Services/DatabaseMethods.dart';
+import 'package:chat_app_final/Services/SharedPreferenceHelper.dart';
 import 'package:chat_app_final/widgets/widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,12 @@ class _SignInState extends State<SignIn> {
 
     if (result == null) {
     } else {
-      /* SharedPreferenceHelper().saveUserEmail(userDetails.email);
+      SharedPreferenceHelper().saveUserEmail(userDetails.email);
       SharedPreferenceHelper().saveUserId(userDetails.uid);
       SharedPreferenceHelper()
           .saveUserName(userDetails.email.replaceAll("@gmail.com", ""));
       SharedPreferenceHelper().saveDisplayName(userDetails.displayName);
-      SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);*/
+      SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);
 
       DatabaseMethods().addUserInfoToDB(
           userID: userDetails.uid,
@@ -80,6 +81,15 @@ class _SignInState extends State<SignIn> {
       User userDetails = firebaseUser.user;
 
       if (firebaseUser != null) {
+        // For the local storage, used sharedpreference(key,value)
+
+        SharedPreferenceHelper().saveUserEmail(userDetails.email);
+        SharedPreferenceHelper().saveUserId(userDetails.uid);
+        SharedPreferenceHelper()
+            .saveUserName(userDetails.email.replaceAll("@gmail.com", ""));
+        SharedPreferenceHelper().saveDisplayName(userDetails.displayName);
+        SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);
+
         DatabaseMethods().addUserInfoToDB(
           userID: userDetails.uid,
           email: userDetails.email,

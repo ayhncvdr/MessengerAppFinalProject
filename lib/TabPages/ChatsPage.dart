@@ -19,11 +19,13 @@ class _ChatsPageState extends State<ChatsPage> {
     await DatabaseMethods().getUserNamefromDB(_textEditingController.text);
   }
 
-  Widget searchUsersListTile(String imgUrl, name, email) {
+  Widget searchUsersListTile(String imgUrl, name, email, username) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Conversations()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => Conversations(username, name, imgUrl)));
       },
       child: Row(
         children: [
@@ -68,7 +70,7 @@ class _ChatsPageState extends State<ChatsPage> {
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
                     return searchUsersListTile(
-                        ds["imgUrl"], ds["name"], ds["email"]);
+                        ds["imgUrl"], ds["name"], ds["email"], ds["username"]);
 
                     /*Image.network(
                       ds["imgUrl"],
