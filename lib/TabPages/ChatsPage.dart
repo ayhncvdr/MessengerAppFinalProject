@@ -1,5 +1,6 @@
 import 'package:chat_app_final/Pages/Conversations.dart';
 import 'package:chat_app_final/Services/DatabaseMethods.dart';
+import 'package:chat_app_final/Services/SharedPreferenceHelper.dart';
 import 'package:chat_app_final/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,24 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   TextEditingController _textEditingController = TextEditingController();
+  String myName, myProfilePic, myUsername, myEmail;
+
+  getMyInfowithSharedPreference() async {
+    // current user's info with sharedpreference
+
+    myName = await SharedPreferenceHelper().getDisplayName();
+    myProfilePic = await SharedPreferenceHelper().getUserProfileUrl();
+    myUsername = await SharedPreferenceHelper().getUserName();
+    myEmail = await SharedPreferenceHelper().getUserEmail();
+  }
+
+  getChatRoomId(String a, String b) {
+    if (a.substring(1, 8).codeUnitAt(6) > b.substring(1, 8).codeUnitAt(6)) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
 
   onSearchButtonClicked() async {
     setState(() {});
@@ -22,6 +41,11 @@ class _ChatsPageState extends State<ChatsPage> {
   Widget searchUsersListTile(String imgUrl, name, email, username) {
     return GestureDetector(
       onTap: () {
+        var chatRoomId = getChatRoomId(myUsername, username);
+        Map<String, dynamic> chatRoomInfoMap = {
+          "users": [myUsername, username]
+        };
+        DatabaseMethods().generateChatRoom(chatRoomId, chatRoomInfoMap);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -83,6 +107,12 @@ class _ChatsPageState extends State<ChatsPage> {
                   alignment: Alignment.topCenter,
                   child: CircularProgressIndicator());
         });
+  }
+
+  @override
+  void initState() {
+    getMyInfowithSharedPreference();
+    super.initState();
   }
 
   @override
