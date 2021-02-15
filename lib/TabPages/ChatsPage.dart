@@ -82,6 +82,8 @@ class _ChatsPageState extends State<ChatsPage> {
     );
   }
 
+  Widget ListofChats() {}
+
   Widget searchUsersList() {
     return FutureBuilder(
         future:

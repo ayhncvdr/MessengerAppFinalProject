@@ -30,7 +30,7 @@ class _ConversationsState extends State<Conversations> {
   //init state threw exception when trying to async, so used another async method
   loadOnLaunchforInitState() async {
     await getMyInfowithSharedPreference();
-    getandSetMessage();
+    // getandSetMessage();
   }
 
   @override
@@ -82,26 +82,50 @@ class _ConversationsState extends State<Conversations> {
     }
   }
 
+  Widget chatsTileUI(String message, bool isSendByMe) {
+    return Row(
+      mainAxisAlignment:
+          isSendByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            color: isSendByMe ? Colors.indigo : Colors.grey,
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: EdgeInsets.all(16),
+          child: Text(
+            message,
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget chats() {
     return FutureBuilder(
       future: DatabaseMethods().getMessagesFromChatromm(chatRoomId),
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
+                reverse: true,
+                padding: EdgeInsets.only(top: 15, bottom: 70),
                 itemCount: snapshot.data.docs.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data.docs[index];
-                  return Text(ds["message"]);
+                  return chatsTileUI(
+                      ds["message"], myUsername == ds["whoSend"]);
                 })
             : Center(child: CircularProgressIndicator());
       },
     );
   }
 
-  getandSetMessage() async {
+  /*getandSetMessage() async {
     await DatabaseMethods().getMessagesFromChatromm(chatRoomId);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

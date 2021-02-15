@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseMethods {
-  Future addUserInfoToDB(
+  addUserInfoToDB(
       {String userID,
       String email,
       String username,
@@ -25,8 +25,7 @@ class DatabaseMethods {
         .get();
   }
 
-  Future addMessage(
-      String chatRoomId, String messageId, Map messageInfoMap) async {
+  addMessage(String chatRoomId, String messageId, Map messageInfoMap) async {
     return FirebaseFirestore.instance
         .collection("chatrooms")
         .doc(chatRoomId)
@@ -63,7 +62,7 @@ class DatabaseMethods {
         .collection("chatrooms")
         .doc(chatRoomId)
         .collection("chats")
-        .orderBy("time", descending: false)
+        .orderBy("time", descending: true)
         .get();
   }
 }
