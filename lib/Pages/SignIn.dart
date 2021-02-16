@@ -95,7 +95,8 @@ class _SignInState extends State<SignIn> {
           email: userDetails.email,
           username: userDetails.email.replaceAll("@gmail.com", ""),
           name: userDetails.displayName,
-          profileUrl: userDetails.photoURL,
+          profileUrl:
+              "https://img.fanatik.com.tr/img/78/700x400/60287a47ae298b679f6fde03.jpg",
         );
       }
       /*.then((value) {
@@ -252,6 +253,7 @@ class _SignInState extends State<SignIn> {
                       width: MediaQuery.of(context).size.width * 0.75,
                       height: MediaQuery.of(context).size.height * 0.08,
                       child: RaisedButton(
+                        color: Colors.white,
                         onPressed: () {
                           signInWithGoogle(context).then((value) {
                             Navigator.push(
@@ -260,9 +262,22 @@ class _SignInState extends State<SignIn> {
                                     builder: (context) => Tabs()));
                           });
                         },
-                        child: Text(
-                          "Sign In with Google",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                            ),
+                            Text(
+                              "Sign In with Google",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                            Image(
+                              image: AssetImage("images/google.png"),
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              width: MediaQuery.of(context).size.width * 0.15,
+                            )
+                          ],
                         ),
                       ),
                     ),

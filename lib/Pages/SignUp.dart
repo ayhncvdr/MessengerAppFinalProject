@@ -44,7 +44,8 @@ class _SignUpState extends State<SignUp> {
           email: userDetails.email,
           username: _username,
           name: userDetails.displayName,
-          profileUrl: userDetails.photoURL,
+          profileUrl:
+              "https://img.fanatik.com.tr/img/78/700x400/60287a47ae298b679f6fde03.jpg",
         );
       }
       /* .then((value) {

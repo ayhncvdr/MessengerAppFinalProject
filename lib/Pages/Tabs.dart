@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chat_app_final/Pages/SignIn.dart';
 import 'package:chat_app_final/TabPages/CallsPage.dart';
 import 'package:chat_app_final/TabPages/CameraPage.dart';
@@ -6,6 +8,7 @@ import 'package:chat_app_final/TabPages/StatusPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Tabs extends StatefulWidget {
   @override
@@ -14,6 +17,15 @@ class Tabs extends StatefulWidget {
 
 class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
   TabController tabController;
+
+  File _image;
+  final imagePicker = ImagePicker();
+  Future getImage() async {
+    final image = await imagePicker.getImage(source: ImageSource.camera);
+    setState(() {
+      _image = File(image.path);
+    });
+  }
 
   @override
   void initState() {
@@ -57,7 +69,16 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
           controller: tabController,
           tabs: [
             Tab(
-              icon: Icon(Icons.camera_alt),
+              icon: GestureDetector(
+                  onTap: () {
+                    getImage();
+                    if (_image == null) {
+                      return "no image selected";
+                    } else {
+                      return Image.file(_image);
+                    }
+                  },
+                  child: Icon(Icons.camera_alt)),
             ),
             Tab(
               text: "Chats",

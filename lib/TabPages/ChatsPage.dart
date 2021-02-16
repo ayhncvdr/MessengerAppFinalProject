@@ -14,6 +14,7 @@ class ChatsPage extends StatefulWidget {
 class _ChatsPageState extends State<ChatsPage> {
   TextEditingController _textEditingController = TextEditingController();
   String myName, myProfilePic, myUsername, myEmail;
+  Stream chatRoomsStream;
 
   getMyInfowithSharedPreference() async {
     // current user's info with sharedpreference
@@ -82,8 +83,6 @@ class _ChatsPageState extends State<ChatsPage> {
     );
   }
 
-  Widget ListofChats() {}
-
   Widget searchUsersList() {
     return FutureBuilder(
         future:
@@ -111,9 +110,13 @@ class _ChatsPageState extends State<ChatsPage> {
         });
   }
 
+  onScreenLoaded() async {
+    await getMyInfowithSharedPreference();
+  }
+
   @override
   void initState() {
-    getMyInfowithSharedPreference();
+    onScreenLoaded();
     super.initState();
   }
 
