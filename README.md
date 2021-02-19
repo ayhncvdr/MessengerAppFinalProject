@@ -4,3 +4,4 @@ Firstly, I began my project with the design of the SignIn and SignUp pages. I ha
 
 ![login](https://user-images.githubusercontent.com/73463728/108489731-f5e36e00-72b2-11eb-9029-05d344ce0c97.PNG)
 ![1](https://user-images.githubusercontent.com/73463728/108489920-304d0b00-72b3-11eb-875f-9d4bd1d4df88.PNG)
+![addUserInfoToDb](https://user-images.githubusercontent.com/73463728/108490071-5d012280-72b3-11eb-93b2-8e4fb3859473.PNG)
