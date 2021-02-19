@@ -39,6 +39,7 @@ To chat with other users I need to create chatrooms. The chatrooms must include 
 ![GenerateChatRoom](https://user-images.githubusercontent.com/73463728/108500096-56c57300-72c0-11eb-9065-52c4fe5bf14b.PNG)
 ![onTapGenerate](https://user-images.githubusercontent.com/73463728/108500293-9b510e80-72c0-11eb-9bd4-bb034e9aa300.PNG)
 
+To add message in a chatroom and update the last message I created an addMessage method in the "Conversations" page and a database method. Inside the "addMessage" method, I created a map which keeps the message, send by who and time values for the message. Also, for all the chats, I generate a random message id. Moreover, whenever I add a message in to the chatroom, I also need to update the last message. For this, I created again a map which keeps the last message, last message send by who and last message time.
 
 
 
