@@ -37,6 +37,8 @@ To chat with other users I need to create chatrooms. The chatrooms must include 
 
 ![getChatRoomId](https://user-images.githubusercontent.com/73463728/108500042-40b7b280-72c0-11eb-9db5-1611f361dcd7.PNG)
 ![GenerateChatRoom](https://user-images.githubusercontent.com/73463728/108500096-56c57300-72c0-11eb-9065-52c4fe5bf14b.PNG)
+![onTapGenerate](https://user-images.githubusercontent.com/73463728/108500293-9b510e80-72c0-11eb-9bd4-bb034e9aa300.PNG)
+
 
 
 
