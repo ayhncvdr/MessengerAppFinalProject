@@ -12,3 +12,6 @@ Firstly, I began my project with the design of the SignIn and SignUp pages. I ha
 Similarly, for google sign in I used “google-signin” package and store the information of the google account on my firestore database with the support of the “addUserInfoToDB” method.
 
 ![googlesignin](https://user-images.githubusercontent.com/73463728/108490475-d567e380-72b3-11eb-888c-11fa36242d82.PNG)
+
+For the "signUp" page, I also wanted to add the user information with the support of the "addUserInfoToDB" again. The UI design of this page is similar to the "SignIn" page.
+
