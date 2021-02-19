@@ -25,4 +25,6 @@ The users in the app are stored in Cloud Firestore and you can see an example in
 After the user login the app, I navigate them to the "TabsPage". In this page, there are 4 tabs (only chats is working, dont have the time to complete the others). The usage of the Chats tab is that the user searchs another user, clicks the user and go to conversations page.
 
 ![tabs](https://user-images.githubusercontent.com/73463728/108492105-cda93e80-72b5-11eb-8f73-99f34c0ce0f2.PNG)
+![deneme deneme](https://user-images.githubusercontent.com/73463728/108492255-fb8e8300-72b5-11eb-839b-35a245601220.PNG)
+
 
