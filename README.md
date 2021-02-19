@@ -15,3 +15,4 @@ Similarly, for google sign in I used “google-signin” package and store the i
 
 For the "signUp" page, I also wanted to add the user information with the support of the "addUserInfoToDB" again. The UI design of this page is similar to the "SignIn" page.
 
+![signup](https://user-images.githubusercontent.com/73463728/108491137-95553080-72b4-11eb-99f9-baf384a137ba.PNG)
