@@ -19,3 +19,5 @@ For the "signUp" page, I also wanted to add the user information with the suppor
 ![signUpp](https://user-images.githubusercontent.com/73463728/108491313-cc2b4680-72b4-11eb-84dd-f9f2d19e44c8.PNG)
 
 The users in the app are stored in Cloud Firestore and you can see an example in below.
+
+![users](https://user-images.githubusercontent.com/73463728/108491589-288e6600-72b5-11eb-887b-b51c392f2bd2.PNG)
