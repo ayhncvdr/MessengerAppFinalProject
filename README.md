@@ -56,3 +56,5 @@ The final steps is to get the messages from firestore just like we did to get th
 ![11](https://user-images.githubusercontent.com/73463728/108502765-5b8c2600-72c4-11eb-987d-19086c19a23c.PNG)
 ![12](https://user-images.githubusercontent.com/73463728/108502766-5c24bc80-72c4-11eb-85df-4a70a9352c1d.PNG)
 
+Finally, I want to connect the camera when the user clicks the camera icon in the "Tabs" page. Then, I wanted to take this image with ImagePicker and add to database as a new collection and display them on status screen. However, I didn't have enough time but the app can connect the camera. Also, in the "signIn" screen I wanted to upload image for the user, I couldnt have the time to implement this again so I set all the images of users the same image (exclude google accounts, I can take the images from google.) Also, I wanted to implement the notifications later. Thank you! 
+
