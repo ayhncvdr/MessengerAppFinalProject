@@ -29,4 +29,7 @@ After the user login the app, I navigate them to the "TabsPage". In this page, t
 
 To get the user in this page, I created another method called "GetUserNameFromDB". I used where clause in this method to get the username. Then with the support of FutureBuilder(it has DocumentSnapshot to acces the data), I showed the users in a list.
 
+![onsearchbutton](https://user-images.githubusercontent.com/73463728/108493169-1281a500-72b7-11eb-8722-ac7079a7c8d3.PNG)
+
+
 
