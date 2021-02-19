@@ -21,3 +21,5 @@ For the "signUp" page, I also wanted to add the user information with the suppor
 The users in the app are stored in Cloud Firestore and you can see an example in below.
 
 ![users](https://user-images.githubusercontent.com/73463728/108491589-288e6600-72b5-11eb-887b-b51c392f2bd2.PNG)
+
+After the user login the app, I navigate them to the "TabsPage". In this page, there are 4 tabs (only chats is working, dont have the time to complete the others). The usage of the Chats tab is that the user searchs another user, clicks the user and go to conversations page.
