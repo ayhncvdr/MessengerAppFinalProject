@@ -46,5 +46,6 @@ To add message in a chatroom and update the last message I created an addMessage
 
 These methods are implemented whenever the user adds a message in the "Conversations" page. The firestore view is seen on the below.
 
+![firebase](https://user-images.githubusercontent.com/73463728/108501694-bcb2fa00-72c2-11eb-8258-4e4d6cd99d4a.PNG)
 
 
