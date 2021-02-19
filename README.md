@@ -42,6 +42,9 @@ To chat with other users I need to create chatrooms. The chatrooms must include 
 To add message in a chatroom and update the last message I created an addMessage method in the "Conversations" page and a database method. Inside the "addMessage" method, I created a map which keeps the message, send by who and time values for the message. Also, for all the chats, I generate a random message id. Moreover, whenever I add a message in to the chatroom, I also need to update the last message. For this, I created again a map which keeps the last message, last message send by who and last message time.
 
 ![addmessage](https://user-images.githubusercontent.com/73463728/108501338-35fe1d00-72c2-11eb-9e8b-d145b9344770.PNG)
+![addupdateDB](https://user-images.githubusercontent.com/73463728/108501399-47dfc000-72c2-11eb-81d4-e60f5ba8e4e7.PNG)
+
+These methods are implemented whenever the user adds a message in the "Conversations" page. The firestore view is seen on the below.
 
 
 
