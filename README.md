@@ -36,6 +36,7 @@ To get the user in this page, I created another method called "GetUserNameFromDB
 To chat with other users I need to create chatrooms. The chatrooms must include the chats, users and last message information. For the users, there should be at least two users. One of them is the current user and another one the user who I want to chat. For the current user, I need to store the current user data in local database. To implement this, I use shared preference. Shared preference uses keys and values for setString method. I need to implement this method when the user logins the app. For the chatrooms I wanted to use the usernames of the users. Inside these documents, the users, chats and last messsage info should be displayed. When the user clicks the user in the "ChatsPage", a new chatroom should be created. The name of the chatroom should be in format of "currentuser_user". Thus, when the other user chats, it should connect the same room.
 
 ![getChatRoomId](https://user-images.githubusercontent.com/73463728/108500042-40b7b280-72c0-11eb-9db5-1611f361dcd7.PNG)
+![GenerateChatRoom](https://user-images.githubusercontent.com/73463728/108500096-56c57300-72c0-11eb-9065-52c4fe5bf14b.PNG)
 
 
 
