@@ -48,4 +48,4 @@ These methods are implemented whenever the user adds a message in the "Conversat
 
 ![firebase](https://user-images.githubusercontent.com/73463728/108501694-bcb2fa00-72c2-11eb-8258-4e4d6cd99d4a.PNG)
 
-
+The final steps is to get the messages from firestore just like we did to get the users in the "ChatsPage". To implement these I created again a database method which gets the data from the "chats" collection and order them. To show these messages on the "Conversations" page, I used again FutureBuilder widget. If the current user send the message then it should display on the right with the blue color, if not it should display on left with grey color.
