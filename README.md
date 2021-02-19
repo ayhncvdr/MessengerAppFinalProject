@@ -31,6 +31,7 @@ To get the user in this page, I created another method called "GetUserNameFromDB
 
 ![onsearchbutton](https://user-images.githubusercontent.com/73463728/108493169-1281a500-72b7-11eb-8722-ac7079a7c8d3.PNG)
 ![getUserName](https://user-images.githubusercontent.com/73463728/108493238-24634800-72b7-11eb-96b9-ce111a68a700.PNG)
+![FutureBuilder](https://user-images.githubusercontent.com/73463728/108493296-3513be00-72b7-11eb-9018-720fe0f1c42f.PNG)
 
 
 
